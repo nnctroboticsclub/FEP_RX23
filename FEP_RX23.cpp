@@ -4,7 +4,7 @@
  *  @author 梅沢晄平
  *  @date   23/10/21
  */
-#include "FEP_RX23_os6.h"
+#include "FEP_RX23.h"
 #include <cstring>
 
 FEP_RX23::FEP_RX23(PinName tx, PinName rx, uint8_t addr_, uint8_t datalen_, int baud) :
