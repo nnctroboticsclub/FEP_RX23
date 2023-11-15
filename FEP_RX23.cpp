@@ -29,8 +29,9 @@ void FEP_RX23::TimeoutLoop()
 {
     if (timeout >= TIMEOUT_COUNT) {
         status = false;
+        tm = false;
     } else {
-        status = true;
+        tm = true;
         timeout++;
     }
 }
@@ -40,6 +41,7 @@ void FEP_RX23::ReceiveBytes()
     this->read(buffer + bufindex, 1);
 
     if ( (!strncmp((char*)(buffer + ((256 + bufindex - 1)%256) ), "\r\n", 2)) ){
+        this->timeout = 0;
         CheckData();
     }
     bufindex++;
@@ -52,7 +54,7 @@ void FEP_RX23::CheckData()
         for (int i_msg=0; i_msg<datalen; i_msg++) {
             msgdata[i_msg] = buffer[(indexofR+9+i_msg)%256];
         }
-        this->timeout = 0;
+        this->status = true;
     }
 }
 
@@ -65,4 +67,9 @@ bool FEP_RX23::getData(uint8_t *data)
 bool FEP_RX23::getStatus()
 {
     return status;
+}
+
+bool FEP_RX23::getTimeout()
+{
+    return tm;
 }
