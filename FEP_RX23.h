@@ -54,8 +54,6 @@ public :
      */
     bool getStatus();
 
-    bool getTimeout();
-
 private :
     Ticker timeoutTimer;
     uint8_t buffer[256];             //! 全受信データを格納するリングバッファ配列
@@ -64,7 +62,6 @@ private :
     uint8_t timeout;                 //! 0.1秒間通信が成功していないと1増える
     uint8_t indexofR;                //! RBNの先頭文字の位置
     bool status=false;                     //! (TIMEOUT_COUNT * 0.1)秒間通信が成り立っていない場合、false
-    bool tm;
     uint8_t datalen;                 //! データバイトの長さ
     uint8_t header[9]={'R','B','N'}; //! 受信コマンド
 };
